@@ -3,14 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Receitas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); /* shadow-md */
+    
+        }
+
+        .h1 {
+            color: #111827;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .recipe-item {
+    display: flex;
+    align-items: center; /* <-- semicolon added */
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+        .recipe-item img {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .recipe-content {
+            flex-grow: 1;
+        }
+
+        .h2 {
+            color: #111827;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .h2 a {
+            color: #3b82f6; /* text-blue-600 */
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+        
+        .h2 a:hover {
+            color: #2563eb; /* text-blue-700 */
+            text-decoration: underline;
+        }
+        .p {
+            margin: 0.5rem 0;
+        }
+
+        .strong {
+            font-weight: 600;
+            color: #111827; /* text-gray-900 */
+        }
+
+        hr {
+            border-top: 1px solid #e5e7eb; /* border-gray-300 */
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-message {
+            text-align: center;
+            font-style: italic;
+            color: #6b7280; 
+            padding: 1rem;
+            border: 1px dashed #d1d5db; /* border-gray-400 */
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+        }
+   </style>
 </head>
 <body>
   <h1>Receitas Cadastradas</h1>
   {% for recipe in recipes %}
-      <h2>{{ recipe.title }}</h2>
+  <div class="recipe-item">
+    {% if recipe.image %}
+      <img src="{{ recipe.image.url }}" alt="">
+    {% endif %}
+    <div class="recipe-content">
+        <h2><a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe.title }}</a></h2>
       <p><strong>Tempo de preparo:</strong> {{ recipe.cooking_time }} minutos</p>
       <p><strong>Ingredientes:</strong> {{ recipe.ingredients }}</p>
       <p><strong>Instruções:</strong> {{ recipe.instructions }}</p>
+    </div>
+  </div>
       <hr>
     {% empty %}
         <p>Nenhuma receita cadastrada.</p>
