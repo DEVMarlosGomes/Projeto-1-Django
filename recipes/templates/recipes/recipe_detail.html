@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{receita.titulo}}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb; /* rounded-xl */
+            border-radius: 8px;
+        }
+        .img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        strong {
+            color: #555;
+
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            color: #007bff; /* text-blue-600 */
+            text-decoration: none;
+        }
+
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'recipe_list' %}" class="back-link">Voltar para a lista de receitas</a>
+
+        <h1>{{ receita.titulo }}</h1>
+        {% if receita.imagem %}
+            <img src="{{ receita.imagem.url }}" alt="{{ receita.titulo }}" class="img">
+        {% endif %}
+
+        <p><strong>Tempo de preparo:</strong> {{ receita.tempo_preparo }} minutos</p>
+
+        <h2>Ingredientes:</h2>
+        <p>{{ receita.ingredientes }}</p>
+
+        <h2>Instruções:</h2>
+        <p>{{ receita.instrutions }}</p>
+
+        <a href="{% url 'recipe_list' %}" class="back-link">Voltar para a lista de receitas</a>
+    </div>
+</body>
+</html>
